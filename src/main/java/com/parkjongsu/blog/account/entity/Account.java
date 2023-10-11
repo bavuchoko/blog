@@ -4,6 +4,7 @@ package com.parkjongsu.blog.account.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,22 +23,23 @@ public class Account {
     private Integer id;
 
     @Column(unique = true)
+    @NotBlank(message = "아이디는 필수 입력 값입니다.")
     private String username;
-    private String birth;
+
     @JsonIgnore
+    @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
     private String password;
+
     private String name;
-
-
     private String portrait;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime joinDate;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
     private Set<AccountRole> roles;
-    @Transient
-    private String token;
+
 
     public void passwordSetter(String password) {
         this.password = password;
