@@ -1,7 +1,7 @@
-package com.parkjongsu.blog.content.service;
+package com.parkjongsu.blog.serve.content.service;
 
 import com.parkjongsu.blog.account.entity.Account;
-import com.parkjongsu.blog.content.dto.ContentDto;
+import com.parkjongsu.blog.serve.content.dto.ContentDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;

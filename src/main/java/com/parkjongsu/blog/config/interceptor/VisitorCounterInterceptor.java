@@ -43,10 +43,6 @@ public class VisitorCounterInterceptor implements HandlerInterceptor {
                 this.increaseVisitCount();
                 //lastPageViewTime 업데이트
                 lastPageViewTimeCookie = new Cookie("lastPageViewTime", String.valueOf(currentTime.toSecondOfDay()));
-
-//                lastPageViewTimeCookie.setDomain("localhost");
-//                lastPageViewTimeCookie.setHttpOnly(true);
-//                lastPageViewTimeCookie.setSecure(true);
             }
 
             //23시 59분 59초를 쿠키 유효시간으로

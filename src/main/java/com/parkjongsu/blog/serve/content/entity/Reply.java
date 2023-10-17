@@ -1,4 +1,4 @@
-package com.parkjongsu.blog.content.entity;
+package com.parkjongsu.blog.serve.content.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;

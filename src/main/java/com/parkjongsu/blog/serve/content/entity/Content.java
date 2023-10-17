@@ -1,11 +1,9 @@
-package com.parkjongsu.blog.content.entity;
+package com.parkjongsu.blog.serve.content.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.parkjongsu.blog.account.AccountController;
 import com.parkjongsu.blog.account.entity.Account;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,8 +36,8 @@ public class Content {
     public String subject;
     public String body;
 
-    @Transient
-    private String category = "content";
+
+    private String category;
 
     private int hit;
     private int favorite;

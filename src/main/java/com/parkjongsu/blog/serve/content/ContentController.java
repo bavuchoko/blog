@@ -1,9 +1,9 @@
-package com.parkjongsu.blog.content;
+package com.parkjongsu.blog.serve.content;
 
 import com.parkjongsu.blog.account.entity.Account;
 import com.parkjongsu.blog.common.annotation.CurrentUser;
-import com.parkjongsu.blog.content.dto.ContentDto;
-import com.parkjongsu.blog.content.service.ContentService;
+import com.parkjongsu.blog.serve.content.dto.ContentDto;
+import com.parkjongsu.blog.serve.content.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

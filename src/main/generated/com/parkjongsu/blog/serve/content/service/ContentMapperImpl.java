@@ -1,8 +1,8 @@
-package com.parkjongsu.blog.content.service;
+package com.parkjongsu.blog.serve.content.service;
 
-import com.parkjongsu.blog.content.dto.ContentDto;
-import com.parkjongsu.blog.content.entity.Content;
-import com.parkjongsu.blog.content.entity.Reply;
+import com.parkjongsu.blog.serve.content.dto.ContentDto;
+import com.parkjongsu.blog.serve.content.entity.Content;
+import com.parkjongsu.blog.serve.content.entity.Reply;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-14T23:26:41+0900",
+    date = "2023-10-17T20:42:42+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.8 (Amazon.com Inc.)"
 )
 @Component

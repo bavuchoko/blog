@@ -1,7 +1,7 @@
-package com.parkjongsu.blog.content.service;
+package com.parkjongsu.blog.serve.content.service;
 
-import com.parkjongsu.blog.content.dto.ContentDto;
-import com.parkjongsu.blog.content.entity.Content;
+import com.parkjongsu.blog.serve.content.dto.ContentDto;
+import com.parkjongsu.blog.serve.content.entity.Content;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
