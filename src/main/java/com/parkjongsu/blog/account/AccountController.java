@@ -17,6 +17,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -58,4 +60,19 @@ public class AccountController {
         CollectionModel pageResources = accountService.getPageResources(assembler, page, account);
         return ResponseEntity.ok(pageResources);
     }
+
+
+    @PostMapping(value = "/reissue")
+    public ResponseEntity refreshToekn(HttpServletRequest request) {
+        String reissuedToken = accountService.reIssueToken(request);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("AUTHORIZATION", "BAERER "+reissuedToken);
+        return new ResponseEntity(reissuedToken, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest req, HttpServletResponse res){
+        accountService.logout(req, res);
+    }
+
 }

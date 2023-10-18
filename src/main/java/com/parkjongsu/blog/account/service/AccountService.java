@@ -19,7 +19,7 @@ public interface AccountService extends UserDetailsService {
 
     String reIssueToken(HttpServletRequest request);
 
-    void logout(HttpServletRequest req);
+    void logout(HttpServletRequest req, HttpServletResponse res);
 
     Page<Account> loadUserList(Pageable pagable);
 

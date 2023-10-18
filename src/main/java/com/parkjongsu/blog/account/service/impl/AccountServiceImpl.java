@@ -54,8 +54,8 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     CookieUtil cookieUtil;
 
-    @Value("${spring.jwt.token-validity-in-seconds}")
-    private long accessTokenValidityTime;
+    @Value("${spring.jwt.token-validity-one-min}")
+    private long globalTimeOneMin;
 
     private final TokenManager tokenManager;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -94,7 +94,7 @@ public class AccountServiceImpl implements AccountService {
         refreshTokenCookie.setSecure(true);
         refreshTokenCookie.setHttpOnly(true);
         // expires in 7 days
-        refreshTokenCookie.setMaxAge((int)(accessTokenValidityTime/1000));
+        refreshTokenCookie.setMaxAge((int)(globalTimeOneMin * 60 * 24 * 14));
         response.addCookie(refreshTokenCookie);
 
         return accessToken;
@@ -102,26 +102,24 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String reIssueToken(HttpServletRequest request) {
-        //쿠키에서 refreshToken을 꺼냄
-        String refreshTokenInCookie = cookieUtil.getCookie(request, TokenType.REFRESH_TOKEN.getValue()).getValue();
-        String accessToken = null;
-        //refresh토큰을 검증함
-        if(StringUtils.hasText(refreshTokenInCookie) && tokenManager.validateToken(refreshTokenInCookie)){
+        String storedRefreshToken = cookieUtil.getCookie(request, TokenType.REFRESH_TOKEN.getValue()).getValue();
+        String clientIp = redisUtil.getData(storedRefreshToken);
+        if(StringUtils.hasText(storedRefreshToken) && tokenManager.validateToken(storedRefreshToken)) {
             //refresh토큰으로 부터 인증객체 생성
             Authentication authentication = tokenManager.getAuthenticationFromRefreshToken(request);
-            accessToken = tokenManager.createToken(authentication, TokenType.ACCESS_TOKEN);
-
+            return tokenManager.createToken(authentication, TokenType.ACCESS_TOKEN);
         }else{
             throw new IllegalArgumentException("No valid refreshToken");
         }
-        return accessToken;
     }
 
     @Override
-    public void logout(HttpServletRequest req) {
+    public void logout(HttpServletRequest req, HttpServletResponse res) {
         if(null != cookieUtil.getCookie(req, TokenType.REFRESH_TOKEN.getValue())){
             String refreshTokenInCookie = cookieUtil.getCookie(req, TokenType.REFRESH_TOKEN.getValue()).getValue();
+            //todo 쿠키에 남은 토큰 삭제필요
             redisUtil.deleteData(refreshTokenInCookie);
+            res.addCookie(cookieUtil.deleteCookie(req, TokenType.REFRESH_TOKEN.getValue()));
         }
     }
 
