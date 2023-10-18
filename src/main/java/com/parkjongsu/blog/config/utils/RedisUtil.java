@@ -1,7 +1,8 @@
 package com.parkjongsu.blog.config.utils;
 
 
-import com.parkjongsu.blog.serve.statistics.entity.Statistics;
+
+import com.parkjongsu.blog.serve.statistics.visitcount.entity.VisitCount;
 import org.apache.commons.io.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.Cursor;
@@ -44,13 +45,14 @@ public class RedisUtil {
 
 
     public List moveDataFromRedisToDb(String keyPattern) {
+
         ScanOptions scanOptions = ScanOptions.scanOptions().match(keyPattern).count(10).build();
         Cursor<byte[]> keys = stringRedisTemplate.getConnectionFactory().getConnection().scan(scanOptions);
         List list = new ArrayList();
         while (keys.hasNext()) {
             byte[] next = keys.next();
             String matchedKey = new String(next, Charsets.UTF_8);
-            list.add(Statistics.builder().day(LocalDate.parse(matchedKey, DateTimeFormatter.ISO_DATE))
+            list.add(VisitCount.builder().day(LocalDate.parse(matchedKey, DateTimeFormatter.ISO_DATE))
                     .count(Integer.parseInt(this.getData(matchedKey)))
                     .build());
             ;

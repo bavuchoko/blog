@@ -1,4 +1,4 @@
-package com.parkjongsu.blog.serve.statistics.entity;
+package com.parkjongsu.blog.serve.statistics.visitcount.entity;
 
 
 import jakarta.persistence.Entity;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Statistics {
+public class VisitCount {
 
     @Id
     private LocalDate day;

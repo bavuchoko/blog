@@ -1,6 +1,7 @@
 package com.parkjongsu.blog.config.interceptor;
 
 import com.parkjongsu.blog.config.utils.CookieUtil;
+import com.parkjongsu.blog.config.utils.RedisUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Slf4j
@@ -16,6 +18,7 @@ import java.time.LocalTime;
 public class VisitorCounterInterceptor implements HandlerInterceptor {
 
     private final CookieUtil cookieUtil;
+    private final RedisUtil redisUtil;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String userAgent = request.getHeader("User-Agent");
@@ -54,6 +57,9 @@ public class VisitorCounterInterceptor implements HandlerInterceptor {
 
 
     public void increaseVisitCount() throws Exception {
-        log.info("방문자 수 증가");
+        LocalDate today = LocalDate.now();
+        int count = redisUtil.getData(today.toString()) == null ?
+                0 : Integer.parseInt(redisUtil.getData(today.toString()));
+        redisUtil.setData(today.toString(), String.valueOf(count+1));
     }
 }
