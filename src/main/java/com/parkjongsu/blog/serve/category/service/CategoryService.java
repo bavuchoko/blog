@@ -1,5 +1,6 @@
 package com.parkjongsu.blog.serve.category.service;
 
+import com.parkjongsu.blog.serve.category.dto.CategoryDto;
 import com.parkjongsu.blog.serve.category.entity.Category;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -12,5 +13,5 @@ public interface CategoryService {
     CollectionModel getResources(List<Category> list);
     List getCategoryTopList();
 
-    void save(Category category);
+    void save(CategoryDto categoryDto);
 }

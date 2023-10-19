@@ -33,8 +33,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void save(Category category) {
-        categoryJpaRepository.save(category);
+    public void save(CategoryDto categoryDto) {
+        categoryJpaRepository.save(CategoryMapper.Instance.toEntity(categoryDto));
     }
 
     @Override

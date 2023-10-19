@@ -13,6 +13,7 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,6 +26,7 @@ public class ContentController {
     @GetMapping
     public ResponseEntity getContentList(
             @CurrentUser Account account,
+            @RequestParam(name = "category", required = false) String category,
             Pageable pageable,
             PagedResourcesAssembler<ContentDto> assembler
             ){

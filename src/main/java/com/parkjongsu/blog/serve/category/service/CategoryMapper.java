@@ -11,9 +11,9 @@ import org.mapstruct.factory.Mappers;
 public interface CategoryMapper {
     CategoryMapper Instance = Mappers.getMapper(CategoryMapper.class);
     @Named("toEntity")
-    Category toEntity(CategoryDto accountDto);
+    Category toEntity(CategoryDto categoryDto);
 
     @Named("toDto")
-    CategoryDto toDto(Category account);
+    CategoryDto toDto(Category category);
 
 }
