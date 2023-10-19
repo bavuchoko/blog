@@ -8,6 +8,7 @@ import com.parkjongsu.blog.serve.category.service.CategoryMapper;
 import com.parkjongsu.blog.serve.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void save(CategoryDto categoryDto) {
         categoryJpaRepository.save(CategoryMapper.Instance.toEntity(categoryDto));
+    }
+
+    @Override
+    public List findRecentContent() {
+//        return categoryJpaRepository.findTop6();
+        return null;
     }
 
     @Override

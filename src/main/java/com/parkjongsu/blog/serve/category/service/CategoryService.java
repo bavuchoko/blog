@@ -14,4 +14,6 @@ public interface CategoryService {
     List getCategoryTopList();
 
     void save(CategoryDto categoryDto);
+
+    List findRecentContent();
 }

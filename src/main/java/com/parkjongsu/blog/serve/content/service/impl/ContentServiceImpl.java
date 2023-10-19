@@ -3,9 +3,11 @@ package com.parkjongsu.blog.serve.content.service.impl;
 
 import com.parkjongsu.blog.account.AccountController;
 import com.parkjongsu.blog.account.entity.Account;
+import com.parkjongsu.blog.serve.content.ContentController;
 import com.parkjongsu.blog.serve.content.dto.ContentDto;
 import com.parkjongsu.blog.serve.content.entity.Content;
 import com.parkjongsu.blog.serve.content.repository.ContentJpaRepository;
+import com.parkjongsu.blog.serve.content.repository.ContentRepository;
 import com.parkjongsu.blog.serve.content.service.ContentMapper;
 import com.parkjongsu.blog.serve.content.service.ContentService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Service
@@ -24,6 +29,7 @@ public class ContentServiceImpl implements ContentService {
 
     private final ContentJpaRepository contentJpaRepository;
 
+    private final ContentRepository contentRepository;
     @Override
     public Page<ContentDto> getContentByPage(Pageable pageable){
         Page<Content> contentPage = contentJpaRepository.findAll(pageable);
@@ -45,4 +51,22 @@ public class ContentServiceImpl implements ContentService {
             return model;
         });
     }
+
+
+    @Override
+    public List<ContentDto> getRecentCotent() {
+        List<Content> list = contentRepository.findRecentLimitedTo(6);
+        return list.stream().map(ContentMapper.Instance::toDto).collect(Collectors.toList());
+    }
+    @Override
+    public CollectionModel getPageResources(List<ContentDto> list){
+        return CollectionModel.of(
+                list.stream().map(
+                        e->(EntityModel.of(e)
+                                .add(linkTo(ContentController.class)
+                                        .slash(e.getId()).withSelfRel()))
+                ).collect(Collectors.toList()))
+                .add(linkTo(ContentController.class).slash("recent").withSelfRel());
+    }
+
 }

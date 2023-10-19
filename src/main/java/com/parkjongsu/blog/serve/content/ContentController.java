@@ -4,6 +4,7 @@ import com.parkjongsu.blog.account.entity.Account;
 import com.parkjongsu.blog.common.annotation.CurrentUser;
 import com.parkjongsu.blog.serve.content.dto.ContentDto;
 import com.parkjongsu.blog.serve.content.service.ContentService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/content",  produces = MediaTypes.HAL_JSON_VALUE)
@@ -37,5 +40,12 @@ public class ContentController {
         return ResponseEntity.ok().body(pageResources);
     }
 
+    @GetMapping(value = "/recent")
+    public ResponseEntity recent() {
+
+        List<ContentDto> list = contentService.getRecentCotent();
+        CollectionModel resources = contentService.getPageResources(list);
+        return ResponseEntity.ok().body(resources);
+    }
 
 }

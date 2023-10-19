@@ -7,8 +7,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 
+import java.util.List;
+
 public interface ContentService {
     Page<ContentDto> getContentByPage(Pageable pageable);
 
     CollectionModel getPageResources(PagedResourcesAssembler<ContentDto> assembler, Page<ContentDto> page, Account account);
+
+    CollectionModel getPageResources(List<ContentDto> list);
+
+    List getRecentCotent();
 }
