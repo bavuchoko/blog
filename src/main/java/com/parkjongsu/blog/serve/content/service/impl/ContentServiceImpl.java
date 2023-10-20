@@ -56,7 +56,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public List<ContentDto> getRecentCotent() {
         List<Content> list = contentRepository.findRecentLimitedTo(6);
-        return list.stream().map(ContentMapper.Instance::toDto).collect(Collectors.toList());
+        return list.stream().map(ContentMapper.Instance::toRecentDto).collect(Collectors.toList());
     }
     @Override
     public CollectionModel getPageResources(List<ContentDto> list){

@@ -9,40 +9,50 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-18T21:31:37+0900",
+    date = "2023-10-20T23:04:55+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.8 (Amazon.com Inc.)"
 )
 @Component
 public class CategoryMapperImpl implements CategoryMapper {
 
     @Override
-    public Category toEntity(CategoryDto accountDto) {
-        if ( accountDto == null ) {
+    public Category toEntity(CategoryDto categoryDto) {
+        if ( categoryDto == null ) {
             return null;
         }
 
         Category.CategoryBuilder category = Category.builder();
 
-        category.id( accountDto.getId() );
-        category.name( accountDto.getName() );
-        category.parent( accountDto.getParent() );
-        List<Category> list = accountDto.getChild();
+        category.id( categoryDto.getId() );
+        category.name( categoryDto.getName() );
+        category.parent( categoryDto.getParent() );
+        List<Category> list = categoryDto.getChild();
         if ( list != null ) {
             category.child( new ArrayList<Category>( list ) );
         }
-        category.orders( accountDto.getOrders() );
-        category.url( accountDto.getUrl() );
+        category.orders( categoryDto.getOrders() );
+        category.url( categoryDto.getUrl() );
 
         return category.build();
     }
 
     @Override
-    public CategoryDto toDto(Category account) {
-        if ( account == null ) {
+    public CategoryDto toDto(Category category) {
+        if ( category == null ) {
             return null;
         }
 
         CategoryDto.CategoryDtoBuilder categoryDto = CategoryDto.builder();
+
+        categoryDto.id( category.getId() );
+        categoryDto.name( category.getName() );
+        categoryDto.parent( category.getParent() );
+        List<Category> list = category.getChild();
+        if ( list != null ) {
+            categoryDto.child( new ArrayList<Category>( list ) );
+        }
+        categoryDto.orders( category.getOrders() );
+        categoryDto.url( category.getUrl() );
 
         return categoryDto.build();
     }

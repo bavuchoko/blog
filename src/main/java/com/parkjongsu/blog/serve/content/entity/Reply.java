@@ -2,6 +2,7 @@ package com.parkjongsu.blog.serve.content.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.parkjongsu.blog.account.entity.Account;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;

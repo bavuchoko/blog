@@ -42,7 +42,6 @@ public class ContentController {
 
     @GetMapping(value = "/recent")
     public ResponseEntity recent() {
-
         List<ContentDto> list = contentService.getRecentCotent();
         CollectionModel resources = contentService.getPageResources(list);
         return ResponseEntity.ok().body(resources);

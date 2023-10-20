@@ -1,6 +1,6 @@
 package com.parkjongsu.blog.serve.content.service;
 
-import com.parkjongsu.blog.serve.content.dto.ReplayDto;
+import com.parkjongsu.blog.serve.content.dto.ReplyDto;
 import com.parkjongsu.blog.serve.content.entity.Reply;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,30 +9,30 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-17T20:42:42+0900",
+    date = "2023-10-20T23:04:55+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.8 (Amazon.com Inc.)"
 )
 @Component
 public class ReplyMapperImpl implements ReplyMapper {
 
     @Override
-    public Reply toEntity(ReplayDto replayDto) {
-        if ( replayDto == null ) {
+    public Reply toEntity(ReplyDto replyDto) {
+        if ( replyDto == null ) {
             return null;
         }
 
         Reply.ReplyBuilder reply = Reply.builder();
 
-        reply.id( replayDto.getId() );
-        reply.content( replayDto.getContent() );
-        reply.createdBy( replayDto.getCreatedBy() );
-        reply.createDate( replayDto.getCreateDate() );
-        reply.modifyDate( replayDto.getModifyDate() );
-        reply.body( replayDto.getBody() );
-        reply.parent( replayDto.getParent() );
-        reply.hit( replayDto.getHit() );
-        reply.favorite( replayDto.getFavorite() );
-        List<Reply> list = replayDto.getChild();
+        reply.id( replyDto.getId() );
+        reply.content( replyDto.getContent() );
+        reply.createdBy( replyDto.getCreatedBy() );
+        reply.createDate( replyDto.getCreateDate() );
+        reply.modifyDate( replyDto.getModifyDate() );
+        reply.body( replyDto.getBody() );
+        reply.parent( replyDto.getParent() );
+        reply.hit( replyDto.getHit() );
+        reply.favorite( replyDto.getFavorite() );
+        List<Reply> list = replyDto.getChild();
         if ( list != null ) {
             reply.child( new ArrayList<Reply>( list ) );
         }
@@ -41,27 +41,41 @@ public class ReplyMapperImpl implements ReplyMapper {
     }
 
     @Override
-    public ReplayDto toDto(Reply reply) {
+    public ReplyDto toDto(Reply reply) {
         if ( reply == null ) {
             return null;
         }
 
-        ReplayDto.ReplayDtoBuilder replayDto = ReplayDto.builder();
+        ReplyDto.ReplyDtoBuilder replyDto = ReplyDto.builder();
 
-        replayDto.id( reply.getId() );
-        replayDto.content( reply.getContent() );
-        replayDto.createdBy( reply.getCreatedBy() );
-        replayDto.createDate( reply.getCreateDate() );
-        replayDto.modifyDate( reply.getModifyDate() );
-        replayDto.body( reply.getBody() );
-        replayDto.parent( reply.getParent() );
-        replayDto.hit( reply.getHit() );
-        replayDto.favorite( reply.getFavorite() );
+        replyDto.id( reply.getId() );
+        replyDto.content( reply.getContent() );
+        replyDto.createdBy( reply.getCreatedBy() );
+        replyDto.createDate( reply.getCreateDate() );
+        replyDto.modifyDate( reply.getModifyDate() );
+        replyDto.body( reply.getBody() );
+        replyDto.parent( reply.getParent() );
+        replyDto.hit( reply.getHit() );
+        replyDto.favorite( reply.getFavorite() );
         List<Reply> list = reply.getChild();
         if ( list != null ) {
-            replayDto.child( new ArrayList<Reply>( list ) );
+            replyDto.child( new ArrayList<Reply>( list ) );
         }
 
-        return replayDto.build();
+        return replyDto.build();
+    }
+
+    @Override
+    public ReplyDto toRecentDto(Reply reply) {
+        if ( reply == null ) {
+            return null;
+        }
+
+        ReplyDto.ReplyDtoBuilder replyDto = ReplyDto.builder();
+
+        replyDto.id( reply.getId() );
+        replyDto.body( reply.getBody() );
+
+        return replyDto.build();
     }
 }

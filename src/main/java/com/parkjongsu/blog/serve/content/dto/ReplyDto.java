@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReplayDto {
+public class ReplyDto {
     private Long id;
     private Content content;
     private Account createdBy;
