@@ -34,7 +34,11 @@ public class Content {
     private LocalDateTime modifyDate;
 
     public String title;
+
+
+    @Column(columnDefinition = "TEXT")
     public String body;
+    @Column(columnDefinition = "TEXT")
     public String bodyHtml;
 
     private String category;
