@@ -21,10 +21,12 @@ public class ContentDto {
     private LocalDateTime modifyDate;
 
     @NotBlank
-    public String subject;
+    public String title;
 
     @NotBlank
     public String body;
+    @NotBlank
+    public String bodyHtml;
 
     private String category;
     private int hit;
