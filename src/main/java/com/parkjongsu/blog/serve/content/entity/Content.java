@@ -3,6 +3,7 @@ package com.parkjongsu.blog.serve.content.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.parkjongsu.blog.account.entity.Account;
+import com.parkjongsu.blog.serve.files.entity.Files;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,5 +51,7 @@ public class Content {
     @JoinColumn(name = "content_id")
     private List<Reply> replies;
 
-
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Files> files;
+    private String thumbnail;
 }

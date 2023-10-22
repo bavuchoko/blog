@@ -2,6 +2,7 @@ package com.parkjongsu.blog.serve.content.dto;
 
 import com.parkjongsu.blog.account.entity.Account;
 import com.parkjongsu.blog.serve.content.entity.Reply;
+import com.parkjongsu.blog.serve.files.entity.Files;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -32,4 +33,7 @@ public class ContentDto {
     private int hit;
     private int favorite;
     private List<Reply> replies;
+
+    private List<Files> files;
+    private String thumbnail;
 }

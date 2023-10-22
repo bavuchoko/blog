@@ -16,6 +16,9 @@ public interface ContentMapper {
     @Named("toDto")
     ContentDto toDto(Content content);
 
+    @Named("toDto")
+    @Mapping(target = "files", ignore = true)
+    ContentDto toDtoList(Content content);
 
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "createDate", ignore = true)
@@ -26,5 +29,7 @@ public interface ContentMapper {
     @Mapping(target = "hit", ignore = true)
     @Mapping(target = "favorite", ignore = true)
     @Mapping(target = "replies", ignore = true)
+    @Mapping(target = "files", ignore = true)
+    @Mapping(target = "thumbnail", ignore = true)
     ContentDto toRecentDto(Content content);
 }

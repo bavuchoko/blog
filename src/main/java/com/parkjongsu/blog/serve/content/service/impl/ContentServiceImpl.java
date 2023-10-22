@@ -33,7 +33,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public Page<ContentDto> getContentByPage(Pageable pageable){
         Page<Content> contentPage = contentJpaRepository.findAll(pageable);
-        Page<ContentDto> contentDtoPage = contentPage.map(ContentMapper.Instance::toDto);
+        Page<ContentDto> contentDtoPage = contentPage.map(ContentMapper.Instance::toDtoList);
         return contentDtoPage;
     }
 
