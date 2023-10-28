@@ -28,7 +28,7 @@ public class FilesUploadController {
     private String FILE_PATH;
     @PostMapping
     public ResponseEntity uploadFile(
-            @RequestPart(value ="file", required=false) MultipartFile file
+            @RequestPart(value ="file", required=true) MultipartFile file
     ) throws IOException {
         String fileNameWithPath;
         try {
@@ -37,7 +37,7 @@ public class FilesUploadController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         Map response = new HashMap();
-        response.put("fileNameWithPath", fileNameWithPath);
+        response.put("uri", fileNameWithPath);
         return ResponseEntity.ok(response);
     }
 }
