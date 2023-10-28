@@ -71,7 +71,7 @@ public class FilesUploadServiceImpl implements FilesUploadService {
                 .size(fileSize)
                 .build();
          this.insertIntoDb(insertToDbFile);
-        return folderName +  File.separator + uploadName;
+        return serverPath +  File.separator + uploadName;
     }
 
     private String extractExtention(String originalName) {

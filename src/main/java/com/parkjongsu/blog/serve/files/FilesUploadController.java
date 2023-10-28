@@ -24,8 +24,6 @@ public class FilesUploadController {
 
     private final FilesUploadService filesUploadService;
 
-    @Value("${file.downloadPath}")
-    private String FILE_PATH;
     @PostMapping
     public ResponseEntity uploadFile(
             @RequestPart(value ="file", required=true) MultipartFile file
