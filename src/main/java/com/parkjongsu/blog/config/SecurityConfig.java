@@ -40,8 +40,8 @@ public class SecurityConfig {
                         configuer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
-                        .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/api/admin").hasRole("ADMIN")
+                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 )
                 .exceptionHandling(authenticationManager ->
                         authenticationManager

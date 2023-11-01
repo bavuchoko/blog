@@ -23,16 +23,22 @@ public class FilesUploadServiceImpl implements FilesUploadService {
 
     private final FilesJpaRepository filesJpaRepository;
 
-    private final String ROOT_UPLOAD_PATH;
+    private final String PATH_PREFIX;
+    private final String IMAGE_PATH;
+    private final String FILE_PATH;
     private final String[] IMAGES = {"jpg", "png", "jpeg", "gif", "bmp"};
     private final String[] DOCUMENTS = {"txt", "excel", "ppt", "hwp", "word", "PDF"};
 
 
     public FilesUploadServiceImpl(
-            @Value("${file.uploadPath}") String rootUploadPath,
+            @Value("${files.prefix}") String prefix,
+            @Value("${files.imagePath}") String imagePath,
+            @Value("${files.filePath}") String filePath,
             FilesJpaRepository simmsFileJpaRepository
     ){
-        this.ROOT_UPLOAD_PATH = rootUploadPath;
+        this.PATH_PREFIX = prefix;
+        this.IMAGE_PATH = imagePath;
+        this.FILE_PATH = filePath;
         this.filesJpaRepository = simmsFileJpaRepository;
     }
 
@@ -46,9 +52,9 @@ public class FilesUploadServiceImpl implements FilesUploadService {
         this.fileTypeChecker(ext, IMAGES);
 
         //file 객체생성
-        String serverPath = this.createDirectory(folderName);
+        String path = this.createDirectory(folderName);
         String uploadName = this.generateUUIDName(ext);
-        File newFile = new File(serverPath, uploadName);
+        File newFile = new File(PATH_PREFIX + path, uploadName);
         //file 저장
         this.saveFile(file, newFile);
 
@@ -65,13 +71,13 @@ public class FilesUploadServiceImpl implements FilesUploadService {
         Files insertToDbFile = Files.builder()
                 .uuidFileName(uploadName)
                 .originalFileName(originalName)
-                .uploadPath(serverPath)
+                .uploadPath(path)
                 .type(type.name())
                 .thumbnail(hasThumbnail)
                 .size(fileSize)
                 .build();
          this.insertIntoDb(insertToDbFile);
-        return serverPath +  File.separator + uploadName;
+        return path + uploadName;
     }
 
     private String extractExtention(String originalName) {
@@ -95,13 +101,13 @@ public class FilesUploadServiceImpl implements FilesUploadService {
      * upload 폴더 밑에 {category} 폴더 -if(없으면 생성해서)- 경로를 리턴
      */
     private String createDirectory(String category) throws IOException {
-        String rootUploadPath = ROOT_UPLOAD_PATH + File.separator;
-        String serverPath = rootUploadPath + File.separator + category + File.separator;
-        File directory = new File(serverPath);
+        String viewPath = IMAGE_PATH + "/" + category + "/";
+        String savedPath = PATH_PREFIX + viewPath + category + "/";
+        File directory = new File(savedPath);
         if (!directory.isDirectory()) {
             directory.mkdirs();
         }
-        return serverPath;
+        return viewPath;
     }
 
     /**
